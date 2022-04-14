@@ -12,7 +12,7 @@ public class OrderRepository {
     private static final String PASS = "postgres";
     private static final String GET_ORDERS = "select * from orders where is_active = true";
     private static final String GET_CLIENT = "select * from users where id=?";
-    private static final String GET_ORDER = "update orders set driver_id = ?, is_active = ?  where id = ?";
+    private static final String CONFIRM_ORDER = "update orders set driver_id = ?, is_active = ?  where id = ?";
     private static final String GET_DRIVER = "select * from driver where login=?";
     private static Connection connection;
 
@@ -49,7 +49,7 @@ public class OrderRepository {
         int driverId = getDriverId(login);
         System.out.println("ID in method: " + driverId);
         try {
-            PreparedStatement ps = connection.prepareStatement(GET_ORDER);
+            PreparedStatement ps = connection.prepareStatement(CONFIRM_ORDER);
             ps.setInt(1, driverId);
             ps.setBoolean(2, false);
             ps.setInt(3, id);
